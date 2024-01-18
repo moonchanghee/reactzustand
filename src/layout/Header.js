@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import Modal from '../component/modal/Modal'
 
 function Header() {
     return (
