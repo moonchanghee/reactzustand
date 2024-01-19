@@ -3,7 +3,19 @@ import styled, { ThemeProvider } from 'styled-components';
 import Header from "./layout/Header";
 import Main from "./page/MainContainer";
 import Footer from './layout/Footer';
-import Modal from './component/modal/Modal'
+
+function App() {
+    return (
+        <ThemeProvider theme={theme}>
+            <StyledApp>
+                <Header />
+                <Main />
+                <Footer />
+            </StyledApp>
+        </ThemeProvider>
+    );
+}
+
 
 const theme = {
     appMaxWidth: '560px',
@@ -17,21 +29,8 @@ const StyledApp = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  border-radius: 10px; /* 둥근 사각형을 위한 border-radius 값 */
+  border-radius: 10px; 
   box-sizing: content-box;
 `;
-
-function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <StyledApp>
-                <Header />
-                <Main />
-                <Modal />
-                <Footer />
-            </StyledApp>
-        </ThemeProvider>
-    );
-}
 
 export default App;
