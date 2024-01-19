@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
 import listStore from '../store/ListStore';
 import MainPresenter from './MainPresenter';
+import {useInView} from "react-intersection-observer";
+import React from "react";
 
 function Body() {
-    const { list, getList } = listStore();
+    const { list, getList , page, setPage} = listStore();
+    const [ref, inView] = useInView({
+        threshold:0.5,
+        onChange:(inView) => {
+            if(!inView){
+              return;
+            }
+            setPage(page + 1)
+            getList();
+        }
+    });
 
-    useEffect(() => {
-        // 컴포넌트가 마운트될 때 API에서 데이터를 가져옴
-        console.log("test")
-        const fetchData = async () => {
-            await getList();
-        };
-
-        fetchData();
-    }, [getList]);
-
-    return <MainPresenter list={list} />;
+    return (
+            <MainPresenter list={list} inViewTargetElement={ref} />
+    );
 }
 
 export default Body;

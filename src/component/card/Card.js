@@ -6,7 +6,7 @@ function Card({ title, reporter,company, date }) {
         <StyledCard>
             <TitleWrapper>
                 <Title>{title}</Title>
-                <ScrapButton>스크랩</ScrapButton>
+                <ScrapButton><button>*</button></ScrapButton>
             </TitleWrapper>
             <BottomSection>
                 <Reporter>{company} {reporter}</Reporter>
@@ -44,7 +44,7 @@ const Title = styled.h3`
 
 const ScrapButton = styled.button`
   padding: 5px;
-  background-color: lightblue;
+  //background-color: lightblue;
   border: none;
   border-radius: 5px;
   cursor: pointer;

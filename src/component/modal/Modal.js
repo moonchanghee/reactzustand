@@ -1,25 +1,46 @@
-// Modal.js
-import React from "react";
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-function Modal({ isOpen = false, onClose }) {
+function Modal({ isOpen = true, onClose }) {
+    const countryNames = [
+        { name: '대한민국', value: 'korea'},
+        { name: '중국', value: 'china' },
+        { name: '일본', value: 'japan' },
+        { name: '미국', value: 'usa' },
+        { name: '북한', value: 'north_korea' },
+        { name: '러시아', value: 'russia' },
+        { name: '프랑스', value: 'france'},
+        { name: '영국', value: 'england'},
+    ];
+    const [selectedCountries, setSelectedCountries] = useState([]);
+    const [startDate, setStartDate] = useState();
+    const onClickCountryButton = (country) => {
+        setSelectedCountries([...selectedCountries, country]);
+    };
+
     return (
         <>
             {isOpen && (
-                <ModalOverlay onClick={onClose}>
+                <ModalOverlay>
                     <ModalContent onClick={(e) => e.stopPropagation()}>
                         <h2>헤드라인</h2>
                         <LargeInput type="text"/>
                         <h2>날짜</h2>
-                        <LargeInput type="text"/>
+                        <StyledDatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy.MM.dd" />
                         <h2>국가</h2>
-                        <FilterButtons>
-                            {[...Array(8)].map((_, index) => (
-                                <OvalButton key={index + 1}>{index + 1}</OvalButton>
+                            {countryNames.map((country, index) => (
+                                <Countrybutton
+                                    key={index + 1}
+                                    isSelected={selectedCountries.some(selectedCountry => selectedCountry.value === country.value)}
+                                    onClick={() => onClickCountryButton(country)}
+                                >
+                                    {country.name}
+                                </Countrybutton>
                             ))}
-                        </FilterButtons>
                         <br/><br/>
-                        <ApplyFilterButton onClick={onClose}>필터 적용하기</ApplyFilterButton>
+                        <ApplyFilterButton onClick={() => onClose({country: selectedCountries, date: startDate})}>필터 적용하기</ApplyFilterButton>
                     </ModalContent>
                 </ModalOverlay>
             )}
@@ -51,24 +72,6 @@ const ModalContent = styled.div`
   text-align: left;
 `;
 
-const FilterButtons = styled.div`
-  display: flex;
-  justify-content: flex-start; /* 왼쪽 정렬 */
-  flex-wrap: wrap;
-`;
-
-const OvalButton = styled.button`
-  width: 40px;
-  height: 60px;
-  background-color: blue;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 5px;
-`;
-
 const LargeInput = styled.input`
   width: 100%;
   padding: 10px;
@@ -87,6 +90,28 @@ const ApplyFilterButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
+`;
+
+const Countrybutton = styled.button`
+  background-color: white;
+  border: 1px solid darkgray;
+  border-radius: 45%;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  outline: none;
+
+  ${(props) => props.isSelected && `
+    background-color: blue;
+    color: white;
+  `}
+`;
+
+const StyledDatePicker = styled(DatePicker)`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
 `;
 
 export default Modal;
