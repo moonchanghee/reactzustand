@@ -15,9 +15,24 @@ function Modal({ isOpen = true, onClose }) {
         { name: '영국', value: 'england'},
     ];
     const [selectedCountries, setSelectedCountries] = useState([]);
-    const [startDate, setStartDate] = useState();
+    const [startDate, setStartDate] = useState(null);
+    const [headline, setHeadline] = useState(null);
+    const checkSelectedCountryList = (country) => {
+        return selectedCountries.some(selectedCountry => selectedCountry.value === country.value);
+    }
+
     const onClickCountryButton = (country) => {
+        if (checkSelectedCountryList(country)) {
+            // 이미 선택된 국가인 경우 제거
+            setSelectedCountries(prevSelectedCountries => prevSelectedCountries.filter(selectedCountry => selectedCountry.value !== country.value));
+            return;
+        }
+
         setSelectedCountries([...selectedCountries, country]);
+    };
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        setHeadline(inputValue);
     };
 
     return (
@@ -26,21 +41,26 @@ function Modal({ isOpen = true, onClose }) {
                 <ModalOverlay>
                     <ModalContent onClick={(e) => e.stopPropagation()}>
                         <h2>헤드라인</h2>
-                        <LargeInput type="text"/>
+                        <LargeInput type="text" value={headline} onChange={handleInputChange} />
                         <h2>날짜</h2>
-                        <StyledDatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy.MM.dd" />
+                        <StyledDatePicker selected={startDate} onSelect={(date) => {
+                            setStartDate(date)
+                        }}
+                        showIcon
+                        dateFormat="yyyy.MM.dd"
+                        />
                         <h2>국가</h2>
                             {countryNames.map((country, index) => (
                                 <Countrybutton
                                     key={index + 1}
-                                    isSelected={selectedCountries.some(selectedCountry => selectedCountry.value === country.value)}
+                                    isSelected={checkSelectedCountryList(country)}
                                     onClick={() => onClickCountryButton(country)}
                                 >
                                     {country.name}
                                 </Countrybutton>
                             ))}
                         <br/><br/>
-                        <ApplyFilterButton onClick={() => onClose({country: selectedCountries, date: startDate})}>필터 적용하기</ApplyFilterButton>
+                        <ApplyFilterButton onClick={() => onClose({headline, country: selectedCountries, date: startDate})}>필터 적용하기</ApplyFilterButton>
                     </ModalContent>
                 </ModalOverlay>
             )}

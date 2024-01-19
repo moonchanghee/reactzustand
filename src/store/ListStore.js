@@ -9,12 +9,10 @@ const listStore = create((set,get) => ({
     headLine : {name: '전체 헤드라인 ', value: null},
     date: {name:'전체 날짜', begin_date: null},
     setPage: (newPage) => set({ page: newPage }),
-    setCountry: (newCountry) => {
-        set({country: [...newCountry]})
-    },
-    setHeadLine: (newHeadLine) => set({ headLine: { value: newHeadLine } }),
-    setDate: (newDate) => set({ date: { value: newDate } }),
-    getList: async () => {
+    setCountry: (newCountry) => {set({country: [...newCountry]})},
+    setHeadLine: (newHeadLine) => set((state) => ({ headLine: { ...state.headLine, value: newHeadLine } })),
+    setDate: (newDate) => set((state) => ({ date: { ...state.date, value: newDate } })),
+    getList: async (isScroll = true) => {
         const { list, page, headLine, date: { begin_date } , country} = get();
         const countryValues = country.map(countryItem => countryItem.value).join(" ")
         const articleList = await axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json', {
@@ -22,11 +20,16 @@ const listStore = create((set,get) => ({
             "api-key" : "vjQmGxBSVAmVVM5lU2yFePaHenTESf9D",
              "q" : countryValues,
              "page" : page,
-             'headLine' : headLine.value,
+             'fq' : headLine.value,
              'begin_date' : begin_date,
             }
         })
-        await set({list:[ ...list, ...articleList.data.response.docs]})
+        if(isScroll){
+            await set({list:[ ...list, ...articleList.data.response.docs]})
+        }else{
+            await set({list:[ ...articleList.data.response.docs]})
+        }
+
         return articleList
     },
 }));

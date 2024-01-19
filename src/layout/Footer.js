@@ -15,7 +15,7 @@ const StyledFooter = styled.div`
   color: white;
   text-align: center;
   position: fixed;
-  bottom: 0;
+  bottom: 30%;
   width: 100%;
   border-radius: 10px; /* 둥근 사각형을 위한 border-radius 값 */
 

@@ -9,8 +9,8 @@ function Body({list, inViewTargetElement}) {
             {list.map((item, index) => (
                 <Card
                     key={index}
-                    title={item.headline.main}
-                    reporter={item.byline.original}
+                    title={item.headline?.main}
+                    reporter={item.byline?.original}
                     date={item.pub_date}
                 />
             ))}

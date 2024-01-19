@@ -26,7 +26,7 @@ const StyledApp = styled.div`
   max-width: ${theme.appMaxWidth};
   margin: 0 auto;
   background-color: darkgray;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   border-radius: 10px; 

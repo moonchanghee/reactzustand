@@ -9,14 +9,18 @@ function Header() {
     const onClickFilterButton = () => {
         setIsOpenFilterModal(true)
     }
-    const onClickApplyButton = (paylaod) => {
-        setCountry(paylaod.country)
-        // setHeadLine(paylaod.headline)
-        setDate(paylaod.date)
-        getList()
+    const onClickApplyButton = ({date, country, headline}) => {
+        setCountry(country)
+        setHeadLine(headline)
+        let formatDate = date !== null ? `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}` : null;
+        setDate(formatDate)
+        getList(false)
         setIsOpenFilterModal(false)
     }
     const showCountryName = () => {
+        if(country.length === 0){
+            return '전체 국가';
+        }
         return country.length > 1 ? `${country[0].name} 외 ${country.length - 1} 개` : country[0].name;
     }
 
