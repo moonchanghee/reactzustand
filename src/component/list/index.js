@@ -1,16 +1,19 @@
 import React from "react";
 import styled from 'styled-components';
-import Card from '../component/card/Card';
+import Card from '../card';
 
 
-function Body({list, inViewTargetElement}) {
+function List({list, inViewTargetElement}) {
+
     return (
         <BodyContainer>
             {list.map((item, index) => (
                 <Card
                     key={index}
+                    item={item}
                     title={item.headline?.main}
                     reporter={item.byline?.original}
+                    articleUrl = {item.web_url}
                     date={item.pub_date}
                 />
             ))}
@@ -25,4 +28,4 @@ const BodyContainer = styled.div`
   padding-bottom: 60px;
 `;
 
-export default Body;
+export default List;

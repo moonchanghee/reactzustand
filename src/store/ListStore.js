@@ -1,6 +1,6 @@
 import create from 'zustand';
-import axios from 'axios'
 import React from "react";
+import articleAPI from '../api/articleList'
 
 const listStore = create((set,get) => ({
     list: [],
@@ -15,15 +15,9 @@ const listStore = create((set,get) => ({
     getList: async (isScroll = true) => {
         const { list, page, headLine, date: { begin_date } , country} = get();
         const countryValues = country.map(countryItem => countryItem.value).join(" ")
-        const articleList = await axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json', {
-            params:{
-            "api-key" : "vjQmGxBSVAmVVM5lU2yFePaHenTESf9D",
-             "q" : countryValues,
-             "page" : page,
-             'fq' : headLine.value,
-             'begin_date' : begin_date,
-            }
-        })
+        const payload = {countryValues, page, headLine: headLine.value, begin_date }
+        const articleList = await articleAPI.get(payload);
+
         if(isScroll){
             await set({list:[ ...list, ...articleList.data.response.docs]})
         }else{

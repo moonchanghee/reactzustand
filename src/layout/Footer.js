@@ -1,11 +1,15 @@
 import React from "react";
 import styled, { css } from 'styled-components';
+import {Link} from 'react-router-dom';
+import { MdHomeFilled } from "react-icons/md";
+import { TiDocumentText } from "react-icons/ti";
+
 
 function Footer() {
     return (
         <StyledFooter>
-            <Button>버튼 1</Button>
-            <Button>버튼 2</Button>
+            <Link to='/'><Button><MdHomeFilled/></Button></Link>
+            <Link to='/scrap'><Button><TiDocumentText/></Button></Link>
         </StyledFooter>
     );
 }

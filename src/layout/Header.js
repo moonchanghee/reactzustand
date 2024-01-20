@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import listStore from '../store/ListStore';
 import styled from 'styled-components';
-import Modal from '../component/modal/Modal'
+import FilterModal from '../component/modal/FilterModal'
 
 function Header() {
     const { country, headLine ,setCountry, date,setHeadLine,setDate,getList} = listStore();
@@ -29,7 +29,7 @@ function Header() {
             <Button onClick={onClickFilterButton}>{headLine.value || headLine.name}</Button>
             <Button onClick={onClickFilterButton}>{date.value || date.name}</Button>
             <Button onClick={onClickFilterButton}>{showCountryName()}</Button>
-            <Modal isOpen={isOpenFilterModal} onClose={onClickApplyButton}/>
+            <FilterModal isOpen={isOpenFilterModal} onClose={onClickApplyButton}/>
         </HeaderContainer>
     );
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function Modal({ isOpen = true, onClose }) {
+function FilterModal({ isOpen = true, onClose }) {
     const countryNames = [
         { name: '대한민국', value: 'korea'},
         { name: '중국', value: 'china' },
@@ -134,4 +134,4 @@ const StyledDatePicker = styled(DatePicker)`
   box-sizing: border-box;
 `;
 
-export default Modal;
+export default FilterModal;
