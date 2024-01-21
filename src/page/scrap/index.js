@@ -4,14 +4,13 @@ import {useInView} from "react-intersection-observer";
 import React from "react";
 
 function Scrap() {
-    const { list, getScrapList , page, setPage} = scrapStore();
+    const { list, getScrapList} = scrapStore();
     const [ref, inView] = useInView({
         threshold:0.5,
         onChange:(inView) => {
             if(!inView){
                 return;
             }
-            setPage(page + 1)
             getScrapList();
         }
     });
