@@ -9,17 +9,24 @@ function Card({item, title, reporter, company, date, articleUrl }) {
     const onClickCard = () => {
         window.open(articleUrl, '_self');
     }
-
     const checkScrap = (item) => {
         return list.some((scrapItem) => scrapItem._id === item._id);
     }
-
     const onCLickScrapButton = () => {
         if(checkScrap(item)){
          removeScrap(item);
          return;
         }
         setScrap(item);
+    }
+    const setDateFormat = () => {
+        const dateObject = new Date(date);
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObject.getDate()).padStart(2, '0');
+        const formattedDate = `${year}.${month}.${day}`;
+
+        return formattedDate
     }
 
     return (
@@ -35,25 +42,26 @@ function Card({item, title, reporter, company, date, articleUrl }) {
                 </TitleWrapper>
                 <BottomSection>
                     <Reporter>{company} {reporter}</Reporter>
-                    <Date>{date}</Date>
+                    <DateSection>{setDateFormat()}</DateSection>
                 </BottomSection>
             </StyledCard>
     );
 }
 
 const StyledCard = styled.div`
-  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   margin: 10px;
   display: flex;
   flex-direction: column;
+  background-color: #fefefe;
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: left;
 `;
 
 const BottomSection = styled.div`
@@ -65,6 +73,7 @@ const BottomSection = styled.div`
 
 const Title = styled.h3`
   margin: 0;
+  cursor: pointer;
 `;
 
 const ScrapButton = styled.button`
@@ -74,7 +83,7 @@ const ScrapButton = styled.button`
   cursor: pointer;
   color: gray;
   ${(props) => props.isScrap && `
-    color: yellow;
+    color: #feaf00;
   `}
 `;
 
@@ -86,7 +95,7 @@ const Reporter = styled.p`
   margin: 0;
 `;
 
-const Date = styled.p`
+const DateSection = styled.p`
   margin: 0;
 `;
 
