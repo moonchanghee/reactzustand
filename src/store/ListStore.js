@@ -11,7 +11,7 @@ const listStore = create((set,get) => ({
     setPage: (newPage) => set({ page: newPage }),
     setCountry: (newCountry) => {set({country: [...newCountry]})},
     setHeadLine: (newHeadLine) => set((state) => ({ headLine: { ...state.headLine, value: newHeadLine } })),
-    setDate: (newDate) => set((state) => ({ date: { ...state.date, value: newDate } })),
+    setDate: (newDate) => set((state) => ({ date: { ...state.date, begin_date: newDate } })),
     getList: async (isScroll = true) => {
         const { list, page, headLine, date: { begin_date } , country} = get();
         const countryValues = country.map(countryItem => countryItem.value).join(" ")
