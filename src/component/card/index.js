@@ -1,6 +1,7 @@
-import React from "react";
+import React , {useState} from "react";
 import styled from 'styled-components';
 import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa6";
 import scrapStore from '../../store/scrapStore'
 
 function Card({item, title, reporter, company, date, articleUrl }) {
@@ -9,9 +10,12 @@ function Card({item, title, reporter, company, date, articleUrl }) {
         window.open(articleUrl, '_self');
     }
 
+    const checkScrap = (item) => {
+        return list.some((scrapItem) => scrapItem._id === item._id);
+    }
+
     const onCLickScrapButton = () => {
-        let isScraped = list.some((scrapItem) => scrapItem._id === item._id);
-        if(isScraped){
+        if(checkScrap(item)){
          removeScrap(item);
          return;
         }
@@ -24,9 +28,9 @@ function Card({item, title, reporter, company, date, articleUrl }) {
                     <Title onClick={onClickCard}>{title}</Title>
                     <ScrapButton
                         onClick={onCLickScrapButton}
-                        isScrap={true}
+                        isScrap={checkScrap(item)}
                     >
-                        <StarIcon><FaStar/></StarIcon>
+                        <StarIcon>{checkScrap ? <FaStar/> : <FaRegStar/>}</StarIcon>
                     </ScrapButton>
                 </TitleWrapper>
                 <BottomSection>
@@ -68,8 +72,7 @@ const ScrapButton = styled.button`
   background-color: transparent; /* 배경색을 투명으로 설정 */
   border: none;
   cursor: pointer;
-  color: transparent;
-
+  color: gray;
   ${(props) => props.isScrap && `
     color: yellow;
   `}
