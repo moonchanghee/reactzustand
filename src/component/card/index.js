@@ -41,7 +41,7 @@ function Card({item, title, reporter, company, date, articleUrl }) {
                     </ScrapButton>
                 </TitleWrapper>
                 <BottomSection>
-                    <Reporter>{company} {reporter}</Reporter>
+                    <Reporter>{company} {reporter || '-' }</Reporter>
                     <DateSection>{setDateFormat()}</DateSection>
                 </BottomSection>
             </StyledCard>
