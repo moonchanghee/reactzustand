@@ -41,9 +41,15 @@ function FilterModal({ isOpen = true, onClose }) {
                 <ModalOverlay>
                     <ModalContent onClick={(e) => e.stopPropagation()}>
                         <h2>헤드라인</h2>
-                        <LargeInput type="text" value={headline} onChange={handleInputChange} />
+                        <LargeInput
+                            placeholder={"검색하실 헤드라인을 입력해주세요"}
+                            type="text" value={headline}
+                            onChange={handleInputChange} />
                         <h2>날짜</h2>
-                        <StyledDatePicker selected={startDate} onSelect={(date) => {
+                        <StyledDatePicker
+                            placeholderText={"날짜를 선택해주세요"}
+                            selected={startDate}
+                            onSelect={(date) => {
                             setStartDate(date)
                         }}
                         showIcon
@@ -82,14 +88,14 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  max-width: 500px;
-  width: 100%;
+  width: 25%;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   text-align: left;
+  margin-bottom: 30%;
 `;
 
 const LargeInput = styled.input`
@@ -110,6 +116,7 @@ const ApplyFilterButton = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  width: 100%;
 `;
 
 const Countrybutton = styled.button`

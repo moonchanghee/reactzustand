@@ -51,6 +51,7 @@ function Header() {
 
 const HeaderContainer = styled.div`
   display: flex;
+  height: 50px;
   justify-content: center;
   padding: 10px;
   border-top-left-radius: 10px;
