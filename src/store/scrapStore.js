@@ -1,8 +1,7 @@
 import create from 'zustand';
 
-const scrapStore = create((set, get) => ({
+const scrapStore = create((set) => ({
     list: [],
-    page: 0,
     setPage: (newPage) => set({ page: newPage }),
     getScrapList: () => {
         // 로컬 스토리지에서 스크랩 리스트 불러오기
