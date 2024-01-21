@@ -16,13 +16,9 @@ function Footer() {
 
 const StyledFooter = styled.div`
   background-color: black;
-  color: white;
-  text-align: center;
-  position: fixed;
-  bottom: 30%;
-  width: 100%;
-  border-radius: 10px; /* 둥근 사각형을 위한 border-radius 값 */
-
+  height: 100px;
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px;
   ${({ theme }) => css`
     max-width: ${theme.appMaxWidth};
   `}
@@ -36,6 +32,7 @@ const Button = styled.button`
   background-color: gray;
   color: white;
   cursor: pointer;
+  
 `;
 
 export default Footer;

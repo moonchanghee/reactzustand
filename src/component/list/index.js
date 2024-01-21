@@ -24,7 +24,7 @@ function List({list, inViewTargetElement}) {
 
 const BodyContainer = styled.div`
   overflow-y: auto;
-  max-height: 100%;
+  height: 100%;
   padding-bottom: 60px;
 `;
 
