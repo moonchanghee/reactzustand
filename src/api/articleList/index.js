@@ -7,9 +7,9 @@ export default {
      * 뉴욕타임스 기사 리스트를 조회한다
      * @param {Object} payload
      * @param {string} payload.countryValues
-     * @param {string} payload.page
+     * @param {Number} payload.page
      * @param {string} payload.headLine
-     * @param {Number} payload.begin_date
+     * @param {string} payload.begin_date
      * @author ChangHee Moon <ckdgml228@gmail.com>
      */
 
