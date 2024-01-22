@@ -31,7 +31,6 @@ function Header() {
         } else {
             setDate(null);
         }
-        console.log("country", country)
         setCountry(country);
         setHeadLine(headline);
         setPage(1);
