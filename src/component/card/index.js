@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React from "react";
 import styled from 'styled-components';
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
