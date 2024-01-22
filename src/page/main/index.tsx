@@ -4,14 +4,15 @@ import List from '../../component/list';
 import { useInView } from "react-intersection-observer";
 
 function Main() {
-    const { list, getList, page, setPage } = listStore();
+    const { list, getList, page, setPage, isFetching } = listStore();
     const { getScrapList } = scrapStore();
     const [ref, inView] = useInView({
         threshold: 0.5,
         onChange: (inView) => {
-            if (!inView) {
+            if (!inView || isFetching) {
                 return;
             }
+
             setPage(page + 1);
             getList();
             getScrapList();
