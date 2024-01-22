@@ -5,22 +5,40 @@ import { FaSearch } from 'react-icons/fa';
 import { FaRegCalendarCheck } from 'react-icons/fa6';
 import FilterModal from '../component/modal/FilterModal';
 
+interface ButtonProps {
+    isSelected?: boolean;
+    numberOfLines?: number;
+}
+
+interface ApplyButtonProps {
+    date?: Date | null;
+    country?: any[];
+    headline?: string | null
+}
+
 function Header() {
-    const { country, headLine, setCountry, date, setHeadLine, setDate, getList } = listStore();
-    const [isOpenFilterModal, setIsOpenFilterModal] = useState(false);
+    const { country, headLine, setCountry, date, setHeadLine, setDate, getList, setPage } = listStore();
+    const [isOpenFilterModal, setIsOpenFilterModal] = useState<boolean>(false);
 
     const onClickFilterButton = () => {
         setIsOpenFilterModal(true);
     };
 
-    const onClickApplyButton = ({ date, country, headline }) => {
+    const onClickApplyButton = ({ date, country, headline }: ApplyButtonProps) => {
+        if (date !== undefined && date !== null ) {
+            let formatDate = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
+            setDate(formatDate);
+        } else {
+            setDate(null);
+        }
+        console.log("country", country)
         setCountry(country);
         setHeadLine(headline);
-        let formatDate = date !== null ? `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}` : null;
-        setDate(formatDate);
+        setPage(1);
         getList(false);
         setIsOpenFilterModal(false);
     };
+
 
     const showCountryName = () => {
         if (country.length === 0) {
@@ -31,23 +49,25 @@ function Header() {
 
     return (
         <HeaderContainer>
-            <Button onClick={onClickFilterButton} isSelected = {headLine.value} numberOfLines={1}>
+            <Button onClick={onClickFilterButton} isSelected={headLine.value} numberOfLines={1}>
                 <IconContainer>
                     <FaSearch />
                 </IconContainer>
                 {headLine.value || headLine.name}
             </Button>
-            <Button onClick={onClickFilterButton} isSelected = {date.begin_date}>
+            <Button onClick={onClickFilterButton} isSelected={date.begin_date}>
                 <IconContainer>
                     <FaRegCalendarCheck />
                 </IconContainer>
                 {date.begin_date || date.name}
             </Button>
-            <Button onClick={onClickFilterButton} isSelected = {country[0]?.value}>{showCountryName()}</Button>
+            <Button onClick={onClickFilterButton} isSelected={country[0]?.value}>
+                {showCountryName()}
+            </Button>
             <FilterModal isOpen={isOpenFilterModal} onClose={onClickApplyButton} />
         </HeaderContainer>
     );
-}
+};
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -59,7 +79,7 @@ const HeaderContainer = styled.div`
   background-color: #fefefe;
 `;
 
-const Button = styled.button`
+const Button = styled('button')<ButtonProps>`
   padding: 5px 10px;
   margin: 0 3px;
   border: 1px solid #000;
@@ -75,7 +95,9 @@ const Button = styled.button`
     background-color: #e6e6e6;
   }
 
-  ${(props) => props.isSelected && `
+  ${(props) =>
+    props.isSelected &&
+    `
     border: 1px solid #c2d8fa;
     color: #c2d8fa;
   `}

@@ -6,7 +6,15 @@ import Main from "./page/main";
 import Footer from './layout/Footer';
 import Scrap from './page/scrap';
 
-function App() {
+interface Theme {
+    appMaxWidth: string;
+}
+
+const theme: Theme = {
+    appMaxWidth: '560px',
+};
+
+function App(){
     return (
         <Router>
             <ThemeProvider theme={theme}>
@@ -23,13 +31,9 @@ function App() {
     );
 }
 
-const theme = {
-    appMaxWidth: '560px',
-};
-
 const StyledApp = styled.div`
   text-align: center;
-  max-width: ${theme.appMaxWidth};
+  max-width: ${(props) => props.theme.appMaxWidth};
   margin: 0 auto;
   background-color: #edeff3;
   height: 70vh;

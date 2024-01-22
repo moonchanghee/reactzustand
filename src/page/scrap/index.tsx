@@ -1,17 +1,17 @@
-import scrapStore from '../../store/scrapStore';
-import List from '../../component/list'
-import {useInView} from "react-intersection-observer";
 import React from "react";
-import { TiDocumentText } from "react-icons/ti";
+import List from '../../component/list';
+import scrapStore from '../../store/scrapStore';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import { useInView } from "react-intersection-observer";
+import { TiDocumentText } from "react-icons/ti";
 
 function Scrap() {
-    const { list, getScrapList} = scrapStore();
+    const { list, getScrapList } = scrapStore();
     const [ref, inView] = useInView({
-        threshold:0.5,
-        onChange:(inView) => {
-            if(!inView){
+        threshold: 0.5,
+        onChange: (inView) => {
+            if (!inView) {
                 return;
             }
             getScrapList();
@@ -19,13 +19,12 @@ function Scrap() {
     });
 
     return (
-
         <>
             {list.length > 0 ?
-                <List list={list} inViewTargetElement={ref}/>
+                <List list={list} inViewTargetElement={ref} />
                 :
                 <NoScrapCard>
-                    <TiDocumentText size={50}/>
+                    <TiDocumentText size={50} />
                     <h3>저장된 스크랩이 없습니다.</h3>
                     <GotoScrapButton to={'/'}>스크랩 하러 가기</GotoScrapButton>
                 </NoScrapCard>
@@ -33,7 +32,6 @@ function Scrap() {
         </>
     );
 }
-
 
 const NoScrapCard = styled.div`
   display: flex;
@@ -45,7 +43,6 @@ const NoScrapCard = styled.div`
   flex-direction: column;
 `;
 
-
 const GotoScrapButton = styled(Link)`
   padding: 20px 130px;
   background-color: #2f6cf5;
@@ -56,4 +53,5 @@ const GotoScrapButton = styled(Link)`
   cursor: pointer;
   text-decoration: none;
 `;
+
 export default Scrap;

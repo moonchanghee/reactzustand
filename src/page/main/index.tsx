@@ -1,19 +1,18 @@
 import listStore from '../../store/ListStore';
 import scrapStore from '../../store/scrapStore';
-import List from '../../component/list'
-import {useInView} from "react-intersection-observer";
-import React from "react";
+import List from '../../component/list';
+import { useInView } from "react-intersection-observer";
 
 function Main() {
-    const { list, getList , page, setPage} = listStore();
-    const { getScrapList} = scrapStore();
+    const { list, getList, page, setPage } = listStore();
+    const { getScrapList } = scrapStore();
     const [ref, inView] = useInView({
-        threshold:0.5,
-        onChange:(inView) => {
-            if(!inView){
+        threshold: 0.5,
+        onChange: (inView) => {
+            if (!inView) {
                 return;
             }
-            setPage(page + 1)
+            setPage(page + 1);
             getList();
             getScrapList();
         }

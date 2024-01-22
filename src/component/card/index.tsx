@@ -2,23 +2,36 @@ import React from "react";
 import styled from 'styled-components';
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
-import scrapStore from '../../store/scrapStore'
+import scrapStore from '../../store/scrapStore';
 
-function Card({item, title, reporter, company, date, articleUrl }) {
+interface CardProps {
+    item: object;
+    itemId: string;
+    title?: string;
+    reporter?: string | null;
+    date: string;
+    articleUrl: string;
+}
+
+function Card({ item, itemId, title, reporter, date, articleUrl }: CardProps) {
     const { list, setScrap, removeScrap } = scrapStore();
+
     const onClickCard = () => {
         window.open(articleUrl, '_self');
-    }
-    const checkScrap = (item) => {
-        return list.some((scrapItem) => scrapItem._id === item._id);
-    }
+    };
+
+    const checkScrap = (itemId: string ) => {
+        return list.some((scrapItem : { _id: string }) => scrapItem._id === itemId);
+    };
+
     const onCLickScrapButton = () => {
-        if(checkScrap(item)){
-         removeScrap(item);
-         return;
+        if (checkScrap(itemId)) {
+            removeScrap(item);
+            return;
         }
         setScrap(item);
-    }
+    };
+
     const setDateFormat = () => {
         const dateObject = new Date(date);
         const year = dateObject.getFullYear();
@@ -26,25 +39,25 @@ function Card({item, title, reporter, company, date, articleUrl }) {
         const day = String(dateObject.getDate()).padStart(2, '0');
         const formattedDate = `${year}.${month}.${day}`;
 
-        return formattedDate
-    }
+        return formattedDate;
+    };
 
     return (
-            <StyledCard>
-                <TitleWrapper>
-                    <Title onClick={onClickCard}>{title}</Title>
-                    <ScrapButton
-                        onClick={onCLickScrapButton}
-                        isScrap={checkScrap(item)}
-                    >
-                        <StarIcon>{checkScrap ? <FaStar/> : <FaRegStar/>}</StarIcon>
-                    </ScrapButton>
-                </TitleWrapper>
-                <BottomSection>
-                    <Reporter>{company} {reporter || '-' }</Reporter>
-                    <DateSection>{setDateFormat()}</DateSection>
-                </BottomSection>
-            </StyledCard>
+        <StyledCard>
+            <TitleWrapper>
+                <Title onClick={onClickCard}>{title}</Title>
+                <ScrapButton
+                    onClick={onCLickScrapButton}
+                    isScrap={checkScrap(itemId)}
+                >
+                    <StarIcon>{checkScrap(itemId) ? <FaStar /> : <FaRegStar />}</StarIcon>
+                </ScrapButton>
+            </TitleWrapper>
+            <BottomSection>
+                <Reporter>{reporter || '-'}</Reporter>
+                <DateSection>{setDateFormat()}</DateSection>
+            </BottomSection>
+        </StyledCard>
     );
 }
 
@@ -76,9 +89,9 @@ const Title = styled.h3`
   cursor: pointer;
 `;
 
-const ScrapButton = styled.button`
+const ScrapButton = styled.button<{ isScrap: boolean }>`
   padding: 5px;
-  background-color: transparent; /* 배경색을 투명으로 설정 */
+  background-color: transparent;
   border: none;
   cursor: pointer;
   color: gray;
@@ -98,7 +111,5 @@ const Reporter = styled.p`
 const DateSection = styled.p`
   margin: 0;
 `;
-
-
 
 export default Card;

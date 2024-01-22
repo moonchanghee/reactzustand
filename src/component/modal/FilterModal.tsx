@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ko } from 'date-fns/esm/locale';
 
-function FilterModal({ isOpen = true, onClose }) {
-    const countryNames = [
-        { name: '대한민국', value: 'korea'},
+interface Country {
+    name: string;
+    value: string;
+}
+
+interface FilterModalProps {
+    isOpen?: boolean;
+    onClose: (filterData: { headline: string | null; country: Country[]; date: Date | null }) => void;
+}
+
+function FilterModal({ isOpen = false, onClose } : FilterModalProps) {
+    const countryNames: Country[] = [
+        { name: '대한민국', value: 'korea' },
         { name: '중국', value: 'china' },
         { name: '일본', value: 'japan' },
         { name: '미국', value: 'usa' },
@@ -14,23 +25,25 @@ function FilterModal({ isOpen = true, onClose }) {
         { name: '프랑스', value: 'france'},
         { name: '영국', value: 'england'},
     ];
-    const [selectedCountries, setSelectedCountries] = useState([]);
-    const [startDate, setStartDate] = useState(null);
-    const [headline, setHeadline] = useState(null);
-    const checkSelectedCountryList = (country) => {
-        return selectedCountries.some(selectedCountry => selectedCountry.value === country.value);
-    }
 
-    const onClickCountryButton = (country) => {
+    const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [headline, setHeadline] = useState<string | null>(null);
+
+    const checkSelectedCountryList = (country: Country) => {
+        return selectedCountries.some(selectedCountry => selectedCountry.value === country.value);
+    };
+
+    const onClickCountryButton = (country: Country) => {
         if (checkSelectedCountryList(country)) {
-            // 이미 선택된 국가인 경우 제거
             setSelectedCountries(prevSelectedCountries => prevSelectedCountries.filter(selectedCountry => selectedCountry.value !== country.value));
             return;
         }
 
         setSelectedCountries([...selectedCountries, country]);
     };
-    const handleInputChange = (e) => {
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setHeadline(inputValue);
     };
@@ -44,7 +57,7 @@ function FilterModal({ isOpen = true, onClose }) {
                         <LargeInput
                             placeholder={"검색하실 헤드라인을 입력해주세요"}
                             type="text"
-                            value={headline}
+                            value={headline || ''}
                             onChange={handleInputChange}
                         />
                         <h2>날짜</h2>
@@ -54,7 +67,9 @@ function FilterModal({ isOpen = true, onClose }) {
                             onSelect={(date) => {
                                 setStartDate(date);
                             }}
+                            onChange={() => {}}
                             showIcon
+                            locale={ko}
                             dateFormat="yyyy.MM.dd"
                         />
                         <h2>국가</h2>
@@ -68,13 +83,13 @@ function FilterModal({ isOpen = true, onClose }) {
                             </Countrybutton>
                         ))}
                         <br/><br/>
-                        <ApplyFilterButton onClick={() => onClose({headline, country: selectedCountries, date: startDate})}>필터 적용하기</ApplyFilterButton>
+                        <ApplyFilterButton onClick={() => onClose({ headline, country: selectedCountries, date: startDate })}>필터 적용하기</ApplyFilterButton>
                     </ModalContent>
                 </ModalOverlay>
             )}
         </>
     );
-}
+};
 
 const ModalOverlay = styled.div`
   display: flex;
@@ -126,7 +141,8 @@ const ApplyFilterButton = styled.button`
   width: 100%;
 `;
 
-const Countrybutton = styled.button`
+
+const Countrybutton = styled('button')<{ isSelected: boolean }>`
   background-color: white;
   border: 1px solid darkgray;
   border-radius: 45%;

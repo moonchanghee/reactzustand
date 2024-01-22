@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { MdHomeFilled } from "react-icons/md";
 import { TiDocumentText } from "react-icons/ti";
 
-function Footer() {
+function Footer(){
     return (
         <StyledFooter>
             <TabButton to='/'><MdHomeFilled /> 홈</TabButton>
