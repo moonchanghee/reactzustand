@@ -6,8 +6,8 @@ import Card from '../card';
 function List({list, inViewTargetElement}) {
 
     return (
-        <BodyContainer>
-            {list.map((item, index) => (
+        <ListContainer>
+            { list.map((item, index) => (
                 <Card
                     key={index}
                     item={item}
@@ -18,11 +18,11 @@ function List({list, inViewTargetElement}) {
                 />
             ))}
             <div ref={inViewTargetElement}/>
-        </BodyContainer>
+        </ListContainer>
     );
 }
 
-const BodyContainer = styled.div`
+const ListContainer = styled.div`
   overflow-y: auto;
   height: 100%;
   padding-bottom: 60px;

@@ -43,28 +43,30 @@ function FilterModal({ isOpen = true, onClose }) {
                         <h2>헤드라인</h2>
                         <LargeInput
                             placeholder={"검색하실 헤드라인을 입력해주세요"}
-                            type="text" value={headline}
-                            onChange={handleInputChange} />
+                            type="text"
+                            value={headline}
+                            onChange={handleInputChange}
+                        />
                         <h2>날짜</h2>
                         <StyledDatePicker
                             placeholderText={"날짜를 선택해주세요"}
                             selected={startDate}
                             onSelect={(date) => {
-                            setStartDate(date)
-                        }}
-                        showIcon
-                        dateFormat="yyyy.MM.dd"
+                                setStartDate(date);
+                            }}
+                            showIcon
+                            dateFormat="yyyy.MM.dd"
                         />
                         <h2>국가</h2>
-                            {countryNames.map((country, index) => (
-                                <Countrybutton
-                                    key={index + 1}
-                                    isSelected={checkSelectedCountryList(country)}
-                                    onClick={() => onClickCountryButton(country)}
-                                >
-                                    {country.name}
-                                </Countrybutton>
-                            ))}
+                        {countryNames.map((country, index) => (
+                            <Countrybutton
+                                key={index + 1}
+                                isSelected={checkSelectedCountryList(country)}
+                                onClick={() => onClickCountryButton(country)}
+                            >
+                                {country.name}
+                            </Countrybutton>
+                        ))}
                         <br/><br/>
                         <ApplyFilterButton onClick={() => onClose({headline, country: selectedCountries, date: startDate})}>필터 적용하기</ApplyFilterButton>
                     </ModalContent>
@@ -88,7 +90,7 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 25%;
+  width: 500px;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -96,6 +98,11 @@ const ModalContent = styled.div`
   z-index: 1001;
   text-align: left;
   margin-bottom: 30%;
+
+  @media (max-width: 560px) {
+    width: 100%;
+    margin-bottom: 70%;
+  }
 `;
 
 const LargeInput = styled.input`
@@ -110,7 +117,7 @@ const ApplyFilterButton = styled.button`
   display: block;
   margin: 20px auto;
   padding: 15px 30px;
-  background-color: blue;
+  background-color: #2f6cf5;
   color: white;
   font-size: 16px;
   border: none;
@@ -135,10 +142,10 @@ const Countrybutton = styled.button`
 `;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 100%;
   padding: 10px;
   font-size: 16px;
   box-sizing: border-box;
+  width: 500px;
 `;
 
 export default FilterModal;
