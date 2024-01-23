@@ -1,30 +1,12 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
+### `npm install`
+###  Enter your apikey in ApiKey.js folder
+### `npm run start`
 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
+[todo]
+- zustand store ts 도입
+- filter 버튼 관련 데이터 구조 수정
+  
 ![Large GIF (480x437)](https://github.com/moonchanghee/reactzustand/assets/56143212/b7377a75-66ec-454d-b553-d96c4f673e7f)
 
