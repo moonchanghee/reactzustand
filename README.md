@@ -1,7 +1,10 @@
 React, TS, Zustand, react-intersection-observer, localStorage
-### `npm install`
 ###  Enter your apikey in ApiKey.js folder
+### `npm install`
 ### `npm run start`
+
+
+
 
 
 [todo]
