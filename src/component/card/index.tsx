@@ -105,6 +105,7 @@ const StarIcon = styled.span`
 `;
 
 const Reporter = styled.p`
+  text-align: left;
   margin: 0;
 `;
 
