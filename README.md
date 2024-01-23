@@ -26,4 +26,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run eject`
 
-![Small GIF (400x364)](https://github.com/moonchanghee/reactzustand/assets/56143212/2591ed08-b8a2-4582-81ac-167bfe6a4eed)
+![Large GIF (480x437)](https://github.com/moonchanghee/reactzustand/assets/56143212/b7377a75-66ec-454d-b553-d96c4f673e7f)
+
