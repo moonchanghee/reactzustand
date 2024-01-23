@@ -105,9 +105,10 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 500px;
+  width: 400px;
   background-color: white;
   padding: 20px;
+  margin-top: 100px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1001;
@@ -161,7 +162,7 @@ const StyledDatePicker = styled(DatePicker)`
   padding: 10px;
   font-size: 16px;
   box-sizing: border-box;
-  width: 500px;
+  width: 400px;
 `;
 
 export default FilterModal;
